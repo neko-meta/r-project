@@ -1,0 +1,69 @@
+---
+title: "Analysis report"
+subtitle: " `r Sys.time() ` "
+author: "Your Name"
+format: 
+  html: 
+    toc: true
+    number-sections: true
+    theme: simplex
+    backgroundcolor: "#e3e3e3"
+    monobackgroundcolor: "#ffffff"
+    highlight-style: solarized
+    code-block-bg: "#dcd6d2"
+    mainfont: Times New Roman, YuMincho, Hiragino Mincho ProN, Yu Mincho,  
+              MS PMincho, serif;
+    linestretch: "2.5"
+    self-contained: true
+    code-tools: true
+    code-fold: true
+    link-external-icon: true
+    link-external-newwindow: true
+    fig-format: svg
+    fig-width: 10
+extract-media: "./figures"
+bibliography: "./templates/0000_r-project.bib"
+csl: "./templates/sage-vancouver.csl"
+---
+This report contains the analysis code and results for the following research article: 
+
+> ....................
+
+# Materials and Methods
+## Guidelines
+
+## Data analysis
+
+```{r}
+#| label: setup
+#| code-fold: false
+
+# attach the package 'checkpoint'
+library(checkpoint)
+
+# set checkpoint date
+checkpoint("2022-04-01", checkpoint_location = "../", scan_now = FALSE)
+
+# attach packages
+library(pacman)
+pacman::p_load(kableExtra, tidyverse)
+
+# define binary operators for combine strings
+"%cs%" <- function(x, y) paste0(x, y)
+
+# save default graphics parameters
+oldpar <- par(no.readonly = TRUE) 
+
+# load data sets
+df_01 <- read.csv("datasets/01_bcg.csv", na.strings = c("", "NULL"))
+
+```
+
+```{r}
+#| label: terminate
+
+rm(list = ls())
+
+uncheckpoint()
+
+```
