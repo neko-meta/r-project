@@ -1,6 +1,6 @@
-FROM rocker/rstudio:4.1.3
+FROM rocker/rstudio:4.2.0
 
-# Install apt packages (including Japanese fonts)
+# Install apt packages
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
      ssh \
@@ -8,7 +8,6 @@ RUN apt-get update \
      libxml2-dev \
      libgit2-dev \
      libfontconfig1-dev \
-     fonts-ipaexfont \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
