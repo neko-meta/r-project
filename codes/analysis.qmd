@@ -38,25 +38,27 @@ This report contains the analysis code and results for the following research ar
 #| label: setup
 #| code-fold: false
 
-# attach the package 'checkpoint'
-library(checkpoint)
+# set working directory
+setwd("~/project/codes")
 
-# set checkpoint date
-checkpoint("2022-04-01", checkpoint_location = "../", scan_now = FALSE)
-
-# attach packages
-library(pacman)
-pacman::p_load(kableExtra, tidyverse)
-
-# define binary operators for combine strings
-"%cs%" <- function(x, y) paste0(x, y)
+# change processing of missing values in data frames
+options(na.action = "na.pass")
 
 # save default graphics parameters
 oldpar <- par(no.readonly = TRUE) 
 
+# attach the package 'checkpoint'
+library(checkpoint)
+
+# set checkpoint date
+checkpoint("2022-04-21", checkpoint_location = "../", scan_now = FALSE)
+
+# attach packages
+library(pacman)
+p_load(kableExtra, metafor, robvis)
+
 # load data sets
 df_01 <- read.csv("datasets/01_bcg.csv", na.strings = c("", "NULL"))
-
 ```
 
 ```{r}
