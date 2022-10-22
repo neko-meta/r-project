@@ -1,6 +1,6 @@
 # R projects to reproduce research results
 
-This is an R project to reproduce the research results in R using Git/GitHub, Docker, RStudio, and R package `renv`.
+This is an R project to reproduce the research results in R using Git/GitHub, Docker, RStudio, and R package `checkpoint`.
 
 The DOI of the research article that has relevance to this repository is [10.1000/xyz123](https://).
 
@@ -15,10 +15,6 @@ The DOI of the research article that has relevance to this repository is [10.100
   - Manage container startup settings in the `compose.yml` file.
 - Make
   - Customize the startup commands with the `Makefile`, to start and stop the working environment with just `make up` and `make down` commands.
-- renv
-  - [renv](https://rstudio.github.io/renv/index.html) for creating project-specific libraries and managing dependencies
-  - Fix the package version in the `renv.lock` file
-  - Mount package cache from Docker hosts to reduce storage usage and installation time
 - dotfiles
   - Manage RStudio and Git global configuration files in the dotfiles directory
   - Mount and use configuration files from Docker hosts to containers
@@ -44,13 +40,6 @@ The following steps assume that the Docker daemon is running.
 
 Note: To see a list of make commands, run the `make` command in the directory of this R project.
 
-### Package management with renv
-
-- Project-specific library (private library) is created by renv.
-- To record the status of the library, use the `renv::snapshot()` function. At this time, meta-information on packages installed in the library is stored in [`renv.lock`](./renv.lock) file.
-- The `renv::restore()` function can be used to restore the library based on the meta-information recorded in the `renv.lock` file.
-- The entity files of installed packages are stored in the package cache on the Docker host (outside the container). When the container is stopped and restarted, the files stored in the package cache are reused.
-
 ## Change environment variables (optional)
 
 ### Create a `.env` file
@@ -58,15 +47,6 @@ Note: To see a list of make commands, run the `make` command in the directory of
 To set the environment variables, you need to copy the [`.env.example`](./.env.example) file and create a `.env` file based on it.
 
 Note: A `.env` file has been excluded from Git management by a [`.gitignore`](./.gitignore) file in advance.
-
-### Sharing the renv package cache between projects
-
-By default, [renv's package cache](https://rstudio.github.io/renv/articles/renv.html#cache-1) is located in [`dev/renv/cache/`](./dev/renv/cache).
-However, this package cache is used on a project-specific basis, so saved package files are not reused in another project.
-
-To reuse downloaded packages in other projects, create one renv package cache directory on your machine that is universal between projects.
-
-Once the universal package cache is created, specify its path in the environment variable `RENV_PATHS_CACHE_HOST` in the `.env` file.
 
 ### Sharing settings between projects via universal dotfiles
 
